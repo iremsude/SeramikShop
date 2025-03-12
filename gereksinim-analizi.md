@@ -9,8 +9,8 @@
 7. Ürünleri Arama / Filtreleme ⁠
 8. Ürüne Yorum Ekleme
 9. Üründen Yorum Silme
-10. Favorilere Ürün Ekleme
-11. ⁠Favorilerden Ürün Kaldırma
+10. Kategoriye Ürün Ekleme
+11. ⁠Kategoriden Ürün Kaldırma
 12. Sepete Ürün Ekleme ⁠
 13. Sepete Ürün Kaldırma
 14. Sipariş Verme  ⁠
