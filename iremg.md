@@ -2,9 +2,9 @@
 
 ***1.  Üründen Yorum Silme:*** Kullanıcılar kendi yazdıkları yorumları silebilir, admin ise tüm yorumları kaldırma yetkisine sahiptir. Yorum silme işlemi geri alınamaz ve kaldırılan yorumlar ürün sayfasında görünmez. Topluluk kurallarına aykırı yorumlar admin tarafından incelenerek kaldırılabilir.
 
-***2. Favorilere Ürün Ekleme:*** Kullanıcılar beğendikleri ürünleri favori listelerine ekleyerek daha sonra kolayca erişebilir. Favorilere eklenen ürünler, kullanıcı giriş yaptığında hesabına kaydedilir ve farklı cihazlardan erişilebilir. Ürünlerin fiyat değişiklikleri veya stok durumu hakkında bildirim alma seçeneği sunulabilir.
+***2. Kategorilere Ürün Ekleme:*** Satıcı, yeni eklediği ürünleri belirli kategorilere yerleştirerek müşterilerin aradıkları ürünlere daha kolay ulaşmasını sağlayabilir. Ürünler birden fazla kategoriye dahil edilebilir ve kategoriler, ürün özelliklerine göre gruplandırılmalıdır. Kullanıcı deneyimini artırmak için kategori bazlı filtreleme ve arama özellikleri desteklenmelidir.
 
-***3.Favorilerden Ürün Kaldırma:*** Kullanıcılar favori listelerinde bulunan ürünleri istedikleri zaman kaldırabilir. Bir ürün favorilerden çıkarıldığında sadece kullanıcının listesinden silinir, sistemdeki varlığı etkilenmez. Kullanıcılar daha sonra aynı ürünü tekrar favorilere ekleyebilir.
+***3.Kategoriden Ürün Kaldırma:*** Satıcı, mevcut ürünleri belirli kategorilerden kaldırarak ürün organizasyonunu düzenleyebilir. Bir ürün tamamen satıştan kaldırılmadan yalnızca ilgili kategorilerden silinebilir, böylece farklı kategorilerde hala listelenmeye devam edebilir. Bu işlem, stok durumu veya satış stratejilerine bağlı olarak dinamik bir şekilde yönetilmelidir.
 
 ***4.Sepete Ürün Ekleme:*** Kullanıcılar satın almak istedikleri ürünleri sepete ekleyerek ödeme sürecine hazırlanabilir. Sepete eklenen ürünlerin miktarı değiştirilebilir ve oturum kapansa bile giriş yapmış kullanıcılar için kaydedilmelidir.
 
