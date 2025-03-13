@@ -15,7 +15,7 @@
 13. Sepete Ürün Kaldırma
 14. Sipariş Verme  ⁠
 15. Admin Panelinden Ürün Ekleme
-16. Admin Panelden Güncelleme ve Silme
+16. Admin Panelden Ürün Güncelleme ve Silme
 
 # GEREKSİNİM DAĞILIMLARI:
 1. [İrem Sude USLU'nun Gereksinimleri](./iremg.md)
