@@ -8,13 +8,15 @@ import AuthPage from "./pages/AuthPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import BlogDetailsPage from "./pages/BlogDetailsPage";
 
-import "./App.css";
 import UserPage from "./pages/Admin/UserPage";
 import CategoryPage from "./pages/Admin/Categories/CategoryPage";
+
+import "./App.css";
 
 function App() {
   return (
     <Routes>
+      {/* Ana Sayfalar */}
       <Route path="/" element={<HomePage />} />
       <Route path="/shop" element={<ShopPage />} />
       <Route path="/blog" element={<BlogPage />} />
@@ -23,9 +25,10 @@ function App() {
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/product/:id" element={<ProductDetailsPage />} />
       <Route path="/blog/:id" element={<BlogDetailsPage />} />
-      <Route path="/admin/*"></Route>
-       <Route path="users" element={<UserPage />} />
-        <Route path="categories" element={<CategoryPage />} />
+
+      {/* Admin Sayfaları */}
+      <Route path="/admin/users" element={<UserPage />} />
+      <Route path="/admin/categories" element={<CategoryPage />} />
     </Routes>
   );
 }
