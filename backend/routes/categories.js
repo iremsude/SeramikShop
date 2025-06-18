@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const router = express.Router();
 const Category = require("../models/Category.js");
 
@@ -14,6 +13,7 @@ router.post("/", async (req, res) => {
     res.status(201).json(newCategory);
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: "Server error." });
   }
 });
 
@@ -73,26 +73,21 @@ router.put("/:categoryId", async (req, res) => {
   }
 });
 
-// 💥 GÜNCELLENEN KISIM: Kategori silme (Delete)
+// Kategori silme (Delete)
 router.delete("/:categoryId", async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
 
-    // Geçerli MongoDB ObjectId mi?
-    if (!mongoose.Types.ObjectId.isValid(categoryId)) {
-      return res.status(400).json({ error: "Geçersiz kategori ID formatı." });
-    }
-
     const deletedCategory = await Category.findByIdAndDelete(categoryId);
 
     if (!deletedCategory) {
-      return res.status(404).json({ error: "Kategori bulunamadı." });
+      return res.status(404).json({ error: "Category not found." });
     }
 
-    res.status(200).json({ message: "Kategori başarıyla silindi." });
+    res.status(200).json(deletedCategory);
   } catch (error) {
-    console.log("Silme hatası:", error);
-    res.status(500).json({ error: "Kategori silinemedi." });
+    console.log(error);
+    res.status(500).json({ error: "Server error." });
   }
 });
 
