@@ -17,6 +17,17 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Tüm kategorileri getirme (Read - All)
+router.get("/", async (req, res) => {
+  try {
+    const categories = await Category.find();
+
+    res.status(200).json(categories);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Server error." });
+  }
+});
 
 
 module.exports = router;
