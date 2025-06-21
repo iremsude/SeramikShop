@@ -10,7 +10,8 @@ router.post("/", async (req, res) => {
 
     res.status(201).json(newProduct);
   } catch (error) {
-    console.log(error);
+    // Hata durumunda konsola yazdırma
+console.error("Ürün oluşturma hatası:", error);
     res.status(500).json({ error: "Server error." });
   }
 });

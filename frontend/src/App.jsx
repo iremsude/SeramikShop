@@ -11,8 +11,8 @@ import BlogDetailsPage from "./pages/BlogDetailsPage";
 import UserPage from "./pages/Admin/UserPage";
 import CategoryPage from "./pages/Admin/Categories/CategoryPage";
 import UpdateCategoryPage from "./pages/Admin/Categories/UpdateCategoryPage";
+import CreateProductPage from "./pages/admin/Products/CreateProductPage";
 import CreateCategoryPage from "./pages/Admin/Categories/CreateCategoryPage";
-import CreateProductPage from "./pages/Admin/Products/CreateProductPage";
 
 import "./App.css";
 
