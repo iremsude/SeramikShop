@@ -17,7 +17,7 @@ const connect = async () => {
     throw error;
   }
 };
-// middlewaresAdd commentMore actions
+// middlewares
 
 app.use(logger("dev"));
 app.use(express.json());

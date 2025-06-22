@@ -222,7 +222,7 @@ const Header = ({ setIsSearchShow }) => {
                 >
                   <i className="bi bi-search"></i>
                 </button>
-                 {/* <a href="#">Add commentMore actions
+                 {/* <a href="#">
                   <i className="bi bi-heart"></i>
                    </a> */}
                 <div className="header-cart">

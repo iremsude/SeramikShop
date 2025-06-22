@@ -1,16 +1,29 @@
 import CategoryItem from "./CategoryItem";
+import { useEffect, useState } from "react";
 import "./Categories.css";
+import { message } from "antd";
 
 const Categories = () => {
-  const categories = [
-    { image: "img/categories/categories1.png", title: "Kupa" },
-    { image: "img/categories/categories2.png", title: "Fincan" },
-    { image: "img/categories/categories3.png", title: "Vazo" },
-    { image: "img/categories/categories4.png", title: "Kase" },
-    { image: "img/categories/categories5.png", title: "Biblo" },
-    { image: "img/categories/categories6.png", title: "Takı Standı" },
-  ];
+  const [categories, setCategories] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/api/categories`);
+
+        if (response.ok) {
+          const data = await response.json();
+          setCategories(data);
+        } else {
+          message.error("Veri getirme başarısız.");
+        }
+      } catch (error) {
+        console.log("Veri hatası:", error);
+      }
+    };
+    fetchCategories();
+  }, [apiUrl]);
   return (
     <section className="categories">
       <div className="container">
@@ -19,8 +32,8 @@ const Categories = () => {
           <p>Summer Collection New Modern Design</p>
         </div>
         <ul className="category-list">
-          {categories.map((category, index) => (
-            <CategoryItem key={index} image={category.image} title={category.title} />
+            {categories.map((category) => (
+            <CategoryItem key={category._id} category={category} />
           ))}
         </ul>
       </div>

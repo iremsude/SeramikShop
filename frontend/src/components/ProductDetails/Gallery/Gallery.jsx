@@ -2,7 +2,6 @@ import "./Gallery.css";
 import { useState } from "react";
 import PropTypes from "prop-types";
  import Slider from "react-slick";
-import productsData from "../../../data.json";
 
 function PrevBtn({ onClick }) {
   return (
@@ -41,9 +40,9 @@ NextBtn.propTypes = {
 PrevBtn.propTypes = {
   onClick: PropTypes.func,
 };
-const Gallery = () => {
+const Gallery = ({ singleProduct }) => {
   const [activeImg, setActiveImg] = useState({
-    img: productsData[0].img.singleImage,
+    img: singleProduct.img[0],
     imgIndex: 0,
   });
 
@@ -59,30 +58,29 @@ const Gallery = () => {
   return (
     <div className="product-gallery">
       <div className="single-image-wrapper">
-      <img src={`/${activeImg.img}`} id="single-image" alt="" />       
+      <img src={`${activeImg.img}`} id="single-image" alt="" />
       </div>
        <div className="product-thumb">
          <div className="glide__track" data-glide-el="track">
            <ol className="gallery-thumbs glide__slides">
            <Slider {...sliderSettings}>
-               {productsData[0].img.thumbs.map((itemImg, index) => (
+              {singleProduct.img.map((itemImg, index) => (
                  <li
                    className="glide__slide glide__slide--active"
                    key={index}
                    onClick={() =>
                      setActiveImg({
-                       img: productsData[0].img.thumbs[index],
+                       img: itemImg,
                        imgIndex: index,
                      })
                    }
                  >
                    <img
-                    src={`/${itemImg}`}
+                    src={`${itemImg}`}
                      alt=""
                      className={`img-fluid ${
-                       activeImg.imgIndex === index
-                         ? "active"
-                         : ""
+                      activeImg.imgIndex === index ? "active" : ""
+
                      } `}
                    />
                  </li>
@@ -97,3 +95,7 @@ const Gallery = () => {
  };
  
  export default Gallery;
+
+ Gallery.propTypes = {
+  singleProduct: PropTypes.object,
+};
