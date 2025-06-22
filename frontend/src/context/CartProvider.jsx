@@ -35,8 +35,9 @@ import { createContext, useEffect, useState } from "react";
      <CartContext.Provider
        value={{
          cartItems,
+         setCartItems,
          addToCart,
-         removeFromCart
+         removeFromCart,
        }}
      >
        {children}
