@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
         <img src={cartItem.img[0]} alt="" />
          <i
            className="bi bi-x delete-cart"
-           onClick={() => removeFromCart(cartItem.id)}
+          onClick={() => removeFromCart(cartItem._id)}
          ></i>
           <i className="bi bi-x delete-cart" data-id="1"></i>
         </td>
