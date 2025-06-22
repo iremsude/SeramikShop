@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
+
 import { message } from "antd";
 import "./Search.css";
 import { useState } from "react";
 
- const Search = ({ isSearchShow, setIsSearchShow }) => {
+const Search = ({ isSearchShow, setIsSearchShow }) => {
   const [searchResults, setSearchResults] = useState(null);
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -12,7 +13,7 @@ import { useState } from "react";
     setSearchResults(null);
   };
 
-const handleSearch = async (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
     const productName = e.target[0].value;
 
@@ -22,13 +23,13 @@ const handleSearch = async (e) => {
     }
 
     try {
-        const res = await fetch(
+      const res = await fetch(
         `${apiUrl}/api/products/search/${productName.trim()}`
       );
 
-        if (!res.ok) {
+      if (!res.ok) {
         message.error("Ürün getirme hatası!");
-               return;
+        return;
       }
 
       const data = await res.json();
@@ -38,6 +39,7 @@ const handleSearch = async (e) => {
       console.log(error);
     }
   };
+
 
   return (
     <div className={`modal-search ${isSearchShow ? "show" : ""} `}>
@@ -56,8 +58,7 @@ const handleSearch = async (e) => {
           <div className="search-heading">
             <h3>RESULTS FROM PRODUCT</h3>
           </div>
-
-   <div
+          <div
             className="results"
             style={{
               display: `${
@@ -110,11 +111,10 @@ const handleSearch = async (e) => {
         <i
           className="bi bi-x-circle"
           id="close-search"
-           onClick={handleCloseModal}Add commentMore actions
+          onClick={handleCloseModal}
         ></i>
       </div>
-
-          <div className="modal-overlay" onClick={handleCloseModal}></div>
+      <div className="modal-overlay" onClick={handleCloseModal}></div>
     </div>
   );
 };
