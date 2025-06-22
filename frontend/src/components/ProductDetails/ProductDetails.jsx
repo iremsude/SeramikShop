@@ -6,7 +6,7 @@ import Breadcrumb from "./Breadcrumb/Breadcrumb";
  import PropTypes from "prop-types";
 
  
-const ProductDetails = ({ singleProduct }) => {
+const ProductDetails = ({ singleProduct, setSingleProduct }) => {
    return (
      <section className="single-product">
        <div className="container">
@@ -18,8 +18,7 @@ const ProductDetails = ({ singleProduct }) => {
                <Info singleProduct={singleProduct} />
              </main>
            </div>
-          <Tabs singleProduct={singleProduct} />
-         </div>
+              <Tabs singleProduct={singleProduct} setSingleProduct={setSingleProduct} />         </div>
        </div>
      </section>
    );
@@ -29,5 +28,7 @@ const ProductDetails = ({ singleProduct }) => {
 
  ProductDetails.propTypes = {
   singleProduct: PropTypes.object,
+  setSingleProduct: PropTypes.func,
+
 };
 
