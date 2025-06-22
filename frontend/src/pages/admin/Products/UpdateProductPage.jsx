@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const UpdateCategoryPage = () => {
+const UpdateProductPage = () => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
@@ -222,4 +222,4 @@ const UpdateCategoryPage = () => {
   );
 };
 
-export default UpdateCategoryPage;
+export default UpdateProductPage;

@@ -8,11 +8,21 @@ import AuthPage from "./pages/AuthPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import BlogDetailsPage from "./pages/BlogDetailsPage";
 
+
+
 import UserPage from "./pages/Admin/UserPage";
 import CategoryPage from "./pages/Admin/Categories/CategoryPage";
 import UpdateCategoryPage from "./pages/Admin/Categories/UpdateCategoryPage";
 import CreateProductPage from "./pages/admin/Products/CreateProductPage";
 import CreateCategoryPage from "./pages/Admin/Categories/CreateCategoryPage";
+import ProductPage from "./pages/Admin/Products/ProductPage";
+import UpdateProductPage from "./pages/Admin/Products/UpdateProductPage";
+import CouponPage from "./pages/Admin/Coupons/CouponPage";
+import CreateCouponPage from "./pages/Admin/Coupons/CreateCouponPage";
+import UpdateCouponPage from "./pages/Admin/Coupons/UpdateCouponPage";
+
+
+
 
 import "./App.css";
 
@@ -29,12 +39,20 @@ function App() {
       <Route path="/product/:id" element={<ProductDetailsPage />} />
       <Route path="/blog/:id" element={<BlogDetailsPage />} />
 
+
       {/* Admin Sayfaları */}
       <Route path="/admin/users" element={<UserPage />} />
       <Route path="/admin/categories" element={<CategoryPage />} />
       <Route path="/admin/categories/update/:id" element={<UpdateCategoryPage />} />
       <Route path="/admin/categories/create" element={<CreateCategoryPage />} />
-     <Route path="/admin/products/create" element={<CreateProductPage />} />
+      <Route path="/admin/products/create" element={<CreateProductPage />} />
+      <Route path="/admin/products" element={<ProductPage />} />
+      <Route path="/admin/products/update/:id" element={<UpdateProductPage />} />
+      <Route path="/admin/coupons/" element={<CouponPage />} />
+      <Route path="/admin/coupons/create" element={<CreateCouponPage />} />
+      <Route path="/admin/coupons/update/:id" element={<UpdateCouponPage />} />
+
+
     </Routes>
   );
 }
