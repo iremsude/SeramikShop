@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 import { message } from "antd";
 import "./Search.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const Search = ({ isSearchShow, setIsSearchShow }) => {
   const [searchResults, setSearchResults] = useState(null);
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
+  const navigate = useNavigate(); // ✅ Navigasyon fonksiyonu
 
   const handleCloseModal = () => {
     setIsSearchShow(false);
@@ -42,7 +45,7 @@ const Search = ({ isSearchShow, setIsSearchShow }) => {
 
 
   return (
-    <div className={`modal-search ${isSearchShow ? "show" : ""} `}>
+     <div className={`modal-search ${isSearchShow ? "show" : ""} `}>
       <div className="modal-wrapper">
         <h3 className="modal-title">Search for products</h3>
         <p className="modal-text">
@@ -77,9 +80,9 @@ const Search = ({ isSearchShow, setIsSearchShow }) => {
                 Ürün Ara...
               </b>
             )}
+
             {searchResults?.length === 0 && (
-              <a
-                href="#"
+              <div
                 className="result-item"
                 style={{
                   justifyContent: "center",
@@ -87,15 +90,21 @@ const Search = ({ isSearchShow, setIsSearchShow }) => {
                 }}
               >
                 😔Aradığınız Ürün Bulunamadı😔
-              </a>
+              </div>
             )}
+
             {searchResults?.length > 0 &&
-              searchResults?.map((resultItem) => (
-                <a href="#" className="result-item" key={resultItem._id}>
+              searchResults.map((resultItem) => (
+                <div
+                  className="result-item"
+                  key={resultItem._id}
+                  onClick={() => navigate(`/product/${resultItem._id}`)} // ✅ Burada yönlendiriyoruz
+                  style={{ cursor: "pointer" }}
+                >
                   <img
                     src={resultItem.img[0]}
                     className="search-thumb"
-                    alt=""
+                    alt={resultItem.name}
                   />
                   <div className="search-info">
                     <h4>{resultItem.name}</h4>
@@ -104,7 +113,7 @@ const Search = ({ isSearchShow, setIsSearchShow }) => {
                       ${resultItem.price.current.toFixed(2)}
                     </span>
                   </div>
-                </a>
+                </div>
               ))}
           </div>
         </div>

@@ -86,46 +86,19 @@ router.delete("/:productId", async (req, res) => {
   }
 });
 
+//isme göre ürün arama
+router.get("/search/:productName", async (req, res) => {
+  try {
+    const productName = req.params.productName;
+    const products = await Product.find({
+      name: { $regex: productName, $options: "i" } // Büyük/küçük harf duyarsız arama
+    });
+
+    res.status(200).json(products);
+   }catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Server error6." });
+  }
+});
+
 module.exports = router;
-
-
-// Ürün oluşturma için kolay şablon 
-/*
-{
-    "name": "Ürün Adı",
-    "img": [
-        "https://e-commerce-udemy.netlify.app/img/products/product1/1.png",
-        "https://e-commerce-udemy.netlify.app/img/products/product1/2.png",
-        "https://e-commerce-udemy.netlify.app/img/products/product1/3.png",
-        "https://e-commerce-udemy.netlify.app/img/products/product1/2.png"
-    ],
-    "reviews": [
-        {
-            "text": "Bu ürün harika!",
-            "rating": 5,
-            "user": "5fbc7c318f4e3d4e9c53b27e"
-        },
-        {
-            "text": "Fiyatı çok yüksek.",
-            "rating": 2,
-            "user": "5fbc7c318f4e3d4e9c53b27e"
-        }
-    ],
-    "description": "Ürün açıklaması",
-    "colors": [
-        "Mavi",
-        "Kırmızı",
-        "Yeşil"
-    ],
-    "sizes": [
-        "S",
-        "M",
-        "L"
-    ],
-    "price": {
-        "current": 50,
-        "discount": 40
-    },
-    "category": "650cb032054382a2c88bf42e"
-}
-    */
