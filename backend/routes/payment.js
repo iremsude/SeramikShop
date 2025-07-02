@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
         product_data: {
           name: "Hızlı Kargo",
         },
-        unit_amount: cargoFee * 100,
+    unit_amount: Math.round(cargoFee * 100),
       },
       quantity: 1,
     });
@@ -36,14 +36,16 @@ router.post("/", async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${process.env.CLIENT_DOMAIN}/success`,
+    success_url: `${process.env.CLIENT_DOMAIN}/success`,
+    cancel_url: `${process.env.CLIENT_DOMAIN}/cancel`,
+
     });
 
     res.status(200).json({ id: session.id });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Server error." });
-  }
+ } catch (error) {
+  console.error("Stripe Checkout Error:", error); // <-- Detaylı log
+  res.status(500).json({ error: error.message }); // <-- Hata mesajını döndür
+}
 });
 
 module.exports = router;
