@@ -2,18 +2,23 @@ import { Button, Popconfirm, Space, Table, message } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const placeholderImg = "https://via.placeholder.com/100x100?text=No+Image";
+
 const ProductPage = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
+  /* ------------ TABLO KOLONLARI --------------- */
   const columns = [
     {
       title: "Product Görseli",
       dataIndex: "img",
       key: "img",
-      render: (imgSrc) => <img src={imgSrc[0]} alt="Image" width={100} />,
+      render: (imgSrc) => (
+        <img src={imgSrc?.[0] ?? placeholderImg} alt="Image" width={100} />
+      ),
     },
     {
       title: "Name",
@@ -25,23 +30,24 @@ const ProductPage = () => {
       title: "Kategori",
       dataIndex: "categoryName",
       key: "categoryName",
-      render: (text) => <span>{text}</span>,
+      render: (text) => <span>{text || "—"}</span>,
     },
     {
       title: "Fiyat",
       dataIndex: "price",
       key: "price",
-      render: (text) => <span>{text.current.toFixed(2)}</span>,
+      render: (price) =>
+        price?.current ? `$${price.current.toFixed(2)}` : "—",
     },
     {
       title: "İndirim",
       dataIndex: "price",
-      key: "price",
-      render: (text) => <span>%{text.discount}</span>,
+      key: "discount",
+      render: (price) =>
+        price?.discount ? `-%${price.discount}` : "Yok",
     },
     {
       title: "Actions",
-      dataIndex: "actions",
       key: "actions",
       render: (_, record) => (
         <Space>
@@ -49,83 +55,74 @@ const ProductPage = () => {
             type="primary"
             onClick={() => navigate(`/admin/products/update/${record._id}`)}
           >
-            Düzenle
+            Güncelle
           </Button>
           <Popconfirm
-            title="Kategoriyi Sil"
-            description="Kategoriyi silmek istediğinizden emin misiniz?"
+            title="Ürünü Sil"
+            description="Ürünü silmek istediğinizden emin misiniz?"
             okText="Yes"
             cancelText="No"
             onConfirm={() => deleteProduct(record._id)}
           >
             <Button type="primary" danger>
-              Delete
+              Sil
             </Button>
           </Popconfirm>
         </Space>
       ),
     },
   ];
+  /* -------------------------------------------- */
 
+  /* ------------ ÜRÜN SİLME -------------------- */
   const deleteProduct = async (productId) => {
     try {
-      const response = await fetch(`${apiUrl}/api/products/${productId}`, {
+      const res = await fetch(`${apiUrl}/api/products/${productId}`, {
         method: "DELETE",
       });
-
-      if (response.ok) {
-        message.success("Kategori başarıyla silindi.");
-        setDataSource((prevProducts) => {
-          return prevProducts.filter((product) => product._id !== productId);
-        });
-      } else {
-        message.error("Silme işlemi başarısız.");
-      }
-    } catch (error) {
-      console.log("Silme hatası:", error);
+      if (!res.ok) return message.error("Silme işlemi başarısız.");
+      message.success("Ürün başarıyla silindi.");
+      setDataSource((prev) => prev.filter((p) => p._id !== productId));
+    } catch (err) {
+      console.error(err);
+      message.error("Silme hatası.");
     }
   };
+  /* -------------------------------------------- */
 
+  /* ------------ VERİ ÇEKME -------------------- */
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-
       try {
-        const [categoriesResponse, productsResponse] = await Promise.all([
+        const [catRes, prodRes] = await Promise.all([
           fetch(`${apiUrl}/api/categories`),
           fetch(`${apiUrl}/api/products`),
         ]);
+        if (!catRes.ok || !prodRes.ok)
+          return message.error("Veri getirme başarısız.");
 
-        if (!categoriesResponse.ok || !productsResponse.ok) {
-          message.error("Veri getirme başarısız.");
-        }
-
-        const [categoriesData, productsData] = await Promise.all([
-          categoriesResponse.json(),
-          productsResponse.json(),
+        const [categories, products] = await Promise.all([
+          catRes.json(),
+          prodRes.json(),
         ]);
 
-        const productsWithCategories = productsData.map((product) => {
-          const categoryId = product.category;
-          const category = categoriesData.find(
-            (item) => item._id === categoryId
-          );
-
-          return {
-            ...product,
-            categoryName: category ? category.name : "",
-          };
+        const data = products.map((p) => {
+          const category = categories.find((c) => c._id === p.category);
+          return { ...p, categoryName: category?.name ?? "" };
         });
 
-        setDataSource(productsWithCategories);
-      } catch (error) {
-        console.log("Veri hatası:", error);
+        setDataSource(data);
+      } catch (err) {
+        console.error(err);
+        message.error("Veri hatası.");
       } finally {
         setLoading(false);
       }
     };
     fetchData();
   }, [apiUrl]);
+  /* -------------------------------------------- */
 
   return (
     <Table
@@ -133,6 +130,7 @@ const ProductPage = () => {
       columns={columns}
       rowKey={(record) => record._id}
       loading={loading}
+      pagination={{ pageSize: 8 }}
     />
   );
 };

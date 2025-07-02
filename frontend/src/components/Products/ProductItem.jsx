@@ -4,32 +4,41 @@ import { useContext } from "react";
 import { CartContext } from "../../context/CartProvider";
 import { Link } from "react-router-dom";
 
+const placeholderImg = "https://via.placeholder.com/400x400?text=No+Image";
+
 const ProductItem = ({ productItem }) => {
   const { cartItems, addToCart } = useContext(CartContext);
+
+  // Ürün verisi eksikse bile uygulama çökmesin
+  if (!productItem) return null;
+
+  /* ---------- Güvenli alan :) ---------- */
+  const firstImg  = productItem.img?.[0] ?? placeholderImg;
+  const secondImg = productItem.img?.[1] ?? firstImg;
+
+  const originalPrice   = productItem?.price?.current   ?? 0;
+  const discountPercent = productItem?.price?.discount  ?? 0;
+  const discountedPrice =
+    originalPrice - (originalPrice * discountPercent) / 100;
 
   const filteredCart = cartItems.find(
     (cartItem) => cartItem._id === productItem._id
   );
-
-  const originalPrice = productItem.price.current;
-  const discountPercentage = productItem.price.discount;
-
-  // İndirimli fiyatı hesaplama
-  const discountedPrice = 
-  originalPrice - (originalPrice * discountPercentage) / 100;
+  /* ------------------------------------- */
 
   return (
     <div className="product-item glide__slide glide__slide--active">
+      {/* Görseller */}
       <div className="product-image">
-               <a href="#">
-       <img src={productItem.img[0]} alt="" className="img1" />
-          <img src={productItem.img[1]} alt="" className="img2" />
+        <a href="#">
+          <img src={firstImg}  alt="" className="img1" />
+          <img src={secondImg} alt="" className="img2" />
+        </a>
+      </div>
 
-               </a>
-       </div>
-
+      {/* Bilgi */}
       <div className="product-info">
-        <Link to={`/product/${productItem.id}`} className="product-title">
+        <Link to={`/product/${productItem._id}`} className="product-title">
           {productItem.name}
         </Link>
 
@@ -43,21 +52,18 @@ const ProductItem = ({ productItem }) => {
 
         <div className="product-prices">
           <strong className="new-price">${discountedPrice.toFixed(2)}</strong>
-          <span className="old-price">${originalPrice.toFixed(2)}</span>
+          <span   className="old-price">${originalPrice.toFixed(2)}</span>
         </div>
 
-       <span className="product-discount">-{productItem.price.discount}%</span>
-       
+        <span className="product-discount">-{discountPercent}%</span>
+
+        {/* Aksiyon butonları */}
         <div className="product-links">
           <button
             className="add-to-cart"
-
             onClick={() =>
-              addToCart({
-              ...productItem,
-              price: discountedPrice,
-             })
-             }
+              addToCart({ ...productItem, price: discountedPrice })
+            }
             disabled={filteredCart}
           >
             <i className="bi bi-basket-fill"></i>
@@ -67,7 +73,7 @@ const ProductItem = ({ productItem }) => {
             <i className="bi bi-heart-fill"></i>
           </button>
 
-          <Link to={`product/${productItem._id}`} className="product-link">
+          <Link to={`/product/${productItem._id}`} className="product-link">
             <i className="bi bi-eye-fill"></i>
           </Link>
 
@@ -80,9 +86,8 @@ const ProductItem = ({ productItem }) => {
   );
 };
 
-export default ProductItem;
-
 ProductItem.propTypes = {
   productItem: PropTypes.object,
-  setCartItems: PropTypes.func,
 };
+
+export default ProductItem;

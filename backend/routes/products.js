@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
   } catch (error) {
     // Hata durumunda konsola yazdırma
 console.error("Ürün oluşturma hatası:", error);
-    res.status(500).json({ error: "Server error." });
+    res.status(500).json({ error: "Server error1." });
   }
 });
 
@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
     res.status(200).json(products);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Server error." });
+    res.status(500).json({ error: "Server error2." });
   }
 });
 
@@ -41,7 +41,7 @@ router.get("/:productId", async (req, res) => {
     res.status(200).json(product);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Server error." });
+    res.status(500).json({ error: "Server error3." });
   }
 });
 
@@ -64,7 +64,7 @@ router.put("/:productId", async (req, res) => {
     res.status(200).json(updatedProduct);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Server error." });
+    res.status(500).json({ error: "Server error4." });
   }
 });
 
@@ -82,7 +82,7 @@ router.delete("/:productId", async (req, res) => {
     res.status(200).json(deletedProduct);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Server error." });
+    res.status(500).json({ error: "Server error5." });
   }
 });
 

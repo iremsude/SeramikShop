@@ -3,15 +3,13 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-
 const CreateProductPage = () => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
-
   const [form] = Form.useForm();
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
- useEffect(() => {
+  useEffect(() => {
     const fetchCategories = async () => {
       setLoading(true);
 
@@ -45,7 +43,7 @@ const CreateProductPage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-             body: JSON.stringify({
+        body: JSON.stringify({
           ...values,
           price: {
             current: values.current,
@@ -69,6 +67,7 @@ const CreateProductPage = () => {
       setLoading(false);
     }
   };
+  
 
   return (
     <Spin spinning={loading}>
@@ -84,8 +83,7 @@ const CreateProductPage = () => {
           ]}
         >
           <Input />
-          </Form.Item>
-
+        </Form.Item>
         <Form.Item
           label="Ürün Kategorisi"
           name="category"
@@ -104,7 +102,6 @@ const CreateProductPage = () => {
             ))}
           </Select>
         </Form.Item>
-
         <Form.Item
           label="Fiyat"
           name="current"
@@ -129,19 +126,23 @@ const CreateProductPage = () => {
         >
           <InputNumber />
         </Form.Item>
-{/*quill muhabbeti */}
-          <Form.Item
+        <Form.Item
           label="Ürün Açıklaması"
           name="description"
-          rules={[{ required: true, message: "Lütfen bir ürün açıklaması girin!" }]}
+          rules={[
+            {
+              required: true,
+              message: "Lütfen bir ürün açıklaması girin!",
+            },
+          ]}
         >
           <ReactQuill
             theme="snow"
-            style={{ backgroundColor: "white" }}
-            onChange={(value) => form.setFieldsValue({ description: value })}
+            style={{
+              backgroundColor: "white",
+            }}
           />
         </Form.Item>
-
         <Form.Item
           label="Ürün Görselleri (Linkler)"
           name="img"
@@ -190,7 +191,7 @@ const CreateProductPage = () => {
 
         <Button type="primary" htmlType="submit">
           Oluştur
-        </Button> 
+        </Button>
       </Form>
     </Spin>
   );
