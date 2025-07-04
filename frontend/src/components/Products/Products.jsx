@@ -4,6 +4,8 @@ import Slider from "react-slick";
 import PropTypes from "prop-types";
 import { message } from "antd";
 import "./Products.css";
+import { useLocation } from "react-router-dom";
+
 
 function NextBtn({ onClick }) {
   return (
@@ -28,23 +30,32 @@ const Products = () => {
   const [loading, setLoading]   = useState(true);
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(`${apiUrl}/api/products`);
-        if (!res.ok) throw new Error("Fetch failed");
-        const data = await res.json();
-        setProducts(data);
-      } catch (err) {
-        console.error(err);
-        message.error("Veri getirme başarısız.");
-      } finally {
-        setLoading(false);
+  const location = useLocation();
+  const category = new URLSearchParams(location.search).get("category");
+
+
+useEffect(() => {
+  const fetchProducts = async () => {
+    setLoading(true);
+    try {
+      let url = `${apiUrl}/api/products`;
+      if (category) {
+        url += `?category=${encodeURIComponent(category)}`;
       }
-    };
-    fetchProducts();
-  }, [apiUrl]);
+
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Fetch failed");
+      const data = await res.json();
+      setProducts(data);
+    } catch (err) {
+      console.error(err);
+      message.error("Veri getirme başarısız.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchProducts();
+}, [apiUrl, category]);
 
   const sliderSettings = {
     dots: false,

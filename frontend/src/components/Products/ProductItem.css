@@ -161,3 +161,9 @@
       right: 0px;
     }
   }
+
+  .products .product-item .product-image {
+    width: 100%;
+    height: 350px; /* veya istediğiniz sabit yükseklik */
+    overflow: hidden;
+}

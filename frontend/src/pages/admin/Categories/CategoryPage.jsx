@@ -73,6 +73,7 @@ const CategoryPage = () => {
       const response = await fetch(`${apiUrl}/api/categories/${categoryId}`, {
         method: "DELETE",
       });
+    
 
       if (response.ok) {
         message.success("Kategori başarıyla silindi.");

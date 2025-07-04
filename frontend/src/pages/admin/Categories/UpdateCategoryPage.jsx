@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const UpdateCategoryPage = () => {
-const [loading, setLoading] = useState(false);
-const [form] = Form.useForm();
-const params = useParams();
-const categoryId = params.id;
-const apiUrl = import.meta.env.VITE_API_BASE_URL;
+  const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
+  const params = useParams();
+  const categoryId = params.id;
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
   const onFinish = async (values) => {
     setLoading(true);
@@ -31,8 +31,7 @@ const apiUrl = import.meta.env.VITE_API_BASE_URL;
       setLoading(false);
     }
   };
-
-   useEffect(() => {
+  useEffect(() => {
     const fetchSingleCategory = async () => {
       setLoading(true);
 
@@ -61,7 +60,6 @@ const apiUrl = import.meta.env.VITE_API_BASE_URL;
   }, [apiUrl, categoryId, form]);
 
   return (
-
     <Spin spinning={loading}>
       <Form
         form={form}
@@ -70,7 +68,7 @@ const apiUrl = import.meta.env.VITE_API_BASE_URL;
         autoComplete="off"
         onFinish={onFinish}
       >
-       <Form.Item
+        <Form.Item
           label="Kategori İsmi"
           name="name"
           rules={[
@@ -81,7 +79,6 @@ const apiUrl = import.meta.env.VITE_API_BASE_URL;
           ]}
         >
           <Input />
-        
         </Form.Item>
 
         <Form.Item
@@ -96,7 +93,7 @@ const apiUrl = import.meta.env.VITE_API_BASE_URL;
         >
           <Input />
         </Form.Item>
-  <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit">
           Güncelle
         </Button>
       </Form>

@@ -101,4 +101,24 @@ router.get("/search/:productName", async (req, res) => {
   }
 });
 
+// Kategoriye göre ürünleri getirme
+router.get("/", async (req, res) => {
+  try {
+    const categoryId = req.query.category;
+
+    let products;
+
+    if (categoryId) {
+      products = await Product.find({ category: categoryId }); // sadece bu kategoriye ait ürünler
+    } else {
+      products = await Product.find(); // tüm ürünler
+    }
+
+    res.status(200).json(products);
+  } catch (error) {
+    console.log("Ürün getirme hatası:", error);
+    res.status(500).json({ error: "Server error." });
+  }
+});
+
 module.exports = router;

@@ -9,7 +9,7 @@ import CartPage from "./pages/CartPage";
 import AuthPage from "./pages/AuthPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import BlogDetailsPage from "./pages/BlogDetailsPage";
-
+import CategoryProductsPage from "./pages/CategoryProductsPage"; 
 // Admin Paneli importları
 import UserPage from "./pages/Admin/UserPage";
 import CategoryPage from "./pages/Admin/Categories/CategoryPage";
@@ -39,6 +39,7 @@ function App() {
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/product/:id" element={<ProductDetailsPage />} />
       <Route path="/blog/:id" element={<BlogDetailsPage />} />
+      <Route path="/category/:id" element={<CategoryProductsPage />} />
 
       {/* Admin Sayfaları */}
       <Route path="/admin/users" element={<UserPage />} />

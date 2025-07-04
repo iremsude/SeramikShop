@@ -30,10 +30,10 @@ const ProductItem = ({ productItem }) => {
     <div className="product-item glide__slide glide__slide--active">
       {/* Görseller */}
       <div className="product-image">
-        <a href="#">
-          <img src={firstImg}  alt="" className="img1" />
-          <img src={secondImg} alt="" className="img2" />
-        </a>
+     <Link to={`/product/${productItem._id}`}>
+  <img src={firstImg}  alt="" className="img1" />
+  <img src={secondImg} alt="" className="img2" />
+</Link>
       </div>
 
       {/* Bilgi */}

@@ -10,7 +10,7 @@ header {
   }
   
   .global-notification {
-    background-color: #1367ef;
+    background-color: #60a370;
     padding: 14px 0;
     text-align: center;
     font-size: 12px;
@@ -266,3 +266,18 @@ header {
       font-size: 16px !important;
     }
   }
+
+  .logo img {
+  height: 200px; /* burayı 110, 130, 150 yapabilirsin gönlüne göre 🥹 */
+  object-fit: contain;
+  display: block;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+  

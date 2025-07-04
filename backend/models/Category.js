@@ -4,6 +4,8 @@ const CategorySchema = mongoose.Schema(
   {
     name: { type: String, required: true },
     img: { type: String, required: true },
+    slug: { type: String, required: true, unique: true }, // ÖNEMLİ
+
   },
   { timestamps: true }
 );

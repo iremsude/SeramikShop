@@ -1,5 +1,4 @@
 import "./CampaignSingle.css"
- 
  const CampaignSingle = () => {
    return (
      <section className="campaign-single">
