@@ -1,0 +1,34 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Reposoyu klonla
+      uses: actions/checkout@v3
+
+    - name: Node.js kur (örnek, proje React/Vue ise)
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Bağımlılıkları yükle
+      run: npm install
+
+    - name: Uygulamayı build et
+      run: npm run build
+
+    - name: GitHub Pages'e deploy et
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist # veya build çıktının yolu (örneğin ./build)
