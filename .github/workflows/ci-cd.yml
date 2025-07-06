@@ -23,12 +23,14 @@ jobs:
 
     - name: Bağımlılıkları yükle
       run: npm install
+      working-directory: frontend
 
     - name: Uygulamayı build et
       run: npm run build
+      working-directory: frontend
 
     - name: GitHub Pages'e deploy et
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist # veya build çıktının yolu (örneğin ./build)
+        publish_dir: frontend/dist
