@@ -1,34 +1,33 @@
-name: CI/CD Pipeline
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build-and-deploy:
+  build-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Reposoyu klonla
-      uses: actions/checkout@v3
+      - name: Reposoyu klonla
+        uses: actions/checkout@v3
 
-    - name: Node.js kur (örnek, proje React/Vue ise)
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Node.js kur (örnek, proje React/Vue ise)
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    - name: Bağımlılıkları yükle
-      run: npm install
+      - name: Bağımlılıkları yükle
+        run: npm install
+        working-directory: frontend
 
-    - name: Uygulamayı build et
-      run: npm run build
+      - name: Uygulamayı build et
+        run: npm run build
+        working-directory: frontend
 
-    - name: GitHub Pages'e deploy et
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist # veya build çıktının yolu (örneğin ./build)
+      - name: GitHub Pages'e deploy et
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: frontend/dist
