@@ -5,7 +5,7 @@
 
  ***Referans Uygulama:*** [Naramica](https://naramica.com/kupalar?o=8&page=1)
 
-***Uygulama Adresi:*** [SeramikShop](https://seramik-shop-main.vercel.app)
+***Uygulama Adresi:*** [SeramikShop](https://seramik-shop-git-main-iremsudes-projects.vercel.app)
  
  ***Grup Adı:*** Çatlak Çömlekler
 
